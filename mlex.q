@@ -1,10 +1,6 @@
 !Simple Lexer for Q source code
 !For benchmark purposes only
 
-!import sys
-!import clib
-!import files
-
 enumdata symbolnames=
     (errorsym,          $),
     (dotsym,            $),
@@ -70,9 +66,6 @@ proc start=
 !        infile:=cmdparams[1]
 !    else
         infile:="input"
-!        infile:="g:/dbench/input"
-!        infile:="c:/langs/mqtest"
-!        infile:="c:/langs/fann4"
 !    fi
 
     psource:=readbinfile(infile)
@@ -98,7 +91,6 @@ proc start=
     t:=ticks()-t
     tsecs:=t/1000.0
 
-
     nlines+:=lxlineno
     nchars+:=psource.len
 
@@ -121,15 +113,10 @@ end
 proc readtoken=
     lxvalue::=""
 
-!    docase c:=lxsptr^
     doswitch c:=lxsptr^
     when 'a'..'z','$','_' then
         lxvalue::=chr(c)
 doname:
-!       hsum:=0
-
-!        doswitch c:=(++lxsptr)^
-!        docase ++lxsptr; c:=lxsptr^
         doswitch ++lxsptr; c:=lxsptr^
         when 'A'..'Z' then
             lxvalue+:=c+' '
@@ -146,7 +133,6 @@ doname:
         fi
 
         lxsymbol:=namesym
-!       lxhash:=hsum*31
         return
 
     when 'A'..'Z' then
@@ -386,8 +372,6 @@ docomment:
 
     else
         lxerror("Unknown token")
-
-!    end doswitch
     end
 end
 
