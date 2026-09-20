@@ -68,7 +68,7 @@ proc main=
     println
 end
 
-export function loadjpegm(ichar file, i64 &width, &height, &ncomp)ref byte p =
+export func loadjpegm(ichar file, i64 &width, &height, &ncomp)ref byte p =
 !Load jpeg file into a memory buffer
 !return a pointer to the image
 !width/height info is returned via references in the parameter list
@@ -110,7 +110,7 @@ proc initbitstream(ref stream fs)=
     fs.currbit:=1           !force new byte read on next nextbit
 end
 
-function nextbit(ref stream fs)int=
+func nextbit(ref stream fs)int=
     if fs.currbit=1 then
         fs.currbyte:=nextdatabyte(fs)
         fs.currbit:=0x100               !pick up .[7] below
@@ -120,7 +120,7 @@ function nextbit(ref stream fs)int=
     return (fs.currbyte iand fs.currbit|1|0)
 end
 
-function nextdatabyte(ref stream fs)int c=
+func nextdatabyte(ref stream fs)int c=
     do
         if (c:=nextbyte(fs))<>0xFF then
             return c
@@ -133,7 +133,7 @@ function nextdatabyte(ref stream fs)int c=
     return 0
 end
 
-function getstream(ichar filename)ref stream=
+func getstream(ichar filename)ref stream=
     ref stream fs
     fs:=jalloc(stream.bytes)
     fs.data:=readfile(filename)
@@ -147,7 +147,7 @@ function getstream(ichar filename)ref stream=
     return fs
 end
 
-function nextbyte(ref stream fs)int=
+func nextbyte(ref stream fs)int=
     int c
 
     if fs.ptr<fs.ptrend then
@@ -159,7 +159,7 @@ function nextbyte(ref stream fs)int=
     return -1
 end
 
-function readword(ref stream fs)int=
+func readword(ref stream fs)int=
     int bb
 
     bb:=nextbyte(fs)
@@ -212,7 +212,7 @@ proc read_dht(ref stream fs)=
     od
 end
 
-function buildhufftree(ref[]int codelength, symbols)ref huffnode=
+func buildhufftree(ref[]int codelength, symbols)ref huffnode=
     ref[]huffnode nodes
     ref[]ichar codes
     int tot, i
@@ -270,7 +270,7 @@ proc buildtreerec(ref[]huffnode nodes, ref[]ref[]char code, ref[]int symbol, int
     buildtreerec(cast(&nodes^[2*i-1]), cast(&code^[i]), cast(&symbol^[i]), n-i+1, bitx+1, level+1)
 end
 
-function buildcanonical(ref[]int codelengths)ref[]ichar=
+func buildcanonical(ref[]int codelengths)ref[]ichar=
     int i, j, n, code, length
     ref[]ichar a
 
@@ -297,7 +297,7 @@ function buildcanonical(ref[]int codelengths)ref[]ichar=
     return a
 end
 
-function tostrbin(int a, length)ichar=
+func tostrbin(int a, length)ichar=
 !convert a to a binary string, right-justified in a field of n characters, with
 !leading zeros
 !return pointer to static buffer containing result
@@ -405,7 +405,7 @@ proc readmarker(ref stream fs)=
     initbitstream(fs)
 end
 
-function loadjpegfile(ichar file)ref byte=
+func loadjpegfile(ichar file)ref byte=
 !returns pointer to memory block, or 0 if file couldn't be opened.
 !info about the image is in the hdr global
 !read/data errors in the file generate a 'jpegerror' exception
@@ -471,7 +471,7 @@ function loadjpegfile(ichar file)ref byte=
     return pimage
 end
 
-function loadscan(ref stream fs)ref byte=
+func loadscan(ref stream fs)ref byte=
 !Read image data following sos, from filestream handle fs, 
 !and using image params in hdr
 !return a memory pointer to the image data
@@ -501,7 +501,7 @@ function loadscan(ref stream fs)ref byte=
     return pimage
 end
 
-function tree_getsymbol(ref stream fs, ref huffnode node)int=
+func tree_getsymbol(ref stream fs, ref huffnode node)int=
     while node.child0 do
         if nextbit(fs) then
             node := node.child1
@@ -517,7 +517,7 @@ function tree_getsymbol(ref stream fs, ref huffnode node)int=
     return node.symbol
 end
 
-function getsymbol(ref stream fs, int nbits)int=
+func getsymbol(ref stream fs, int nbits)int=
     int a, b
 
     if nbits = 0 then
@@ -700,7 +700,7 @@ proc readblock(ref stream fs, ref[]int block, ref huffnode dctable, actable,
     idct8x8(block)
 end
 
-function loadcolour(ref stream fs, int hoz, vert)ref byte=
+func loadcolour(ref stream fs, int hoz, vert)ref byte=
 !read yuv colour image data
 !hoz/vert will be:
 ! 2 2     2x2 lum sampling compared with chroma
@@ -810,7 +810,7 @@ proc reconsblockcolour(ref[]int lum1, lum2, lum3, lum4, cr, cb, ref byte data, i
     od
 end
 
-function jalloc(int n)ref void=
+func jalloc(int n)ref void=
     ref void p
 
     p:=malloc(n)
@@ -821,7 +821,7 @@ function jalloc(int n)ref void=
     return p
 end
 
-function jallocz(int n)ref void=
+func jallocz(int n)ref void=
     ref void p
     p:=jalloc(n)
     memset(p, 0, n)
