@@ -7,11 +7,12 @@ New github created primarily to view my .md format document files.
 
 ----------
 
-**mm.ma** MM compiler source code in amalgamated form. View using 4-space tabs. It can be split up into discrete files using a script as the format is simple (a "===" line precedes each file).
+**mm.ma** MM compiler source code in amalgamated form. This has been de-tabbed (otherwise M source it needs 4-space tabs).
+It can be split up into discrete files using a script as the format is simple (a "===" line precedes each file).
 
 Or, if the MM compiler is running under Windows, using 'mm -deconst mm.ma'
 
-Note this may contain lots of junk such as commented-out debug statements.
+Start at line 15903 - `proc main`. Note this may contain lots of junk such as commented-out debug statements.
 
 **mm7.hex** This is the binary for the MM compile for windows (mm7.exe). It is in hex text format to get around AV issues. Another very simple script can convert it to binary: convert each two characters representing a hex value and write as an 8-bit byte (so the two-byte "41", ie. 0x34 and 0x31,  needs to be written as the single 0x41 byte).
 
