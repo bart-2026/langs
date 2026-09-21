@@ -13,7 +13,7 @@ Or, if the MM compiler is running under Windows, using 'mm -deconst mm.ma'
 
 Note this may contain lots of junk such as commented-out debug statements.
 
-**mm7.hex** This is the binary for the MM compile for windows (mm7.exe). It is in hex text format to get around AV issues. Another very simple script can convert it to binary: convert each two characters representint a hex value and write as an 8-bit byte (so the two-byte "41" needs to be written as the single 0x41 byte).
+**mm7.hex** This is the binary for the MM compile for windows (mm7.exe). It is in hex text format to get around AV issues. Another very simple script can convert it to binary: convert each two characters representing a hex value and write as an 8-bit byte (so the two-byte "41", ie. 0x34 and 0x31,  needs to be written as the single 0x41 byte).
 
 **mm.c** In case you're on Linux, M can be transpiled to poor quality C (using an M compiler with a special backend, not uploaded). This was applied to the Windows M compiler. Build on Linux using the instructions at the top. (Note this is 100Kloc file of 2.3MB.)
 
