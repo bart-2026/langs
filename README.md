@@ -7,7 +7,7 @@ New github created primarily to view my .md format document files.
 
 ----------
 
-**mm.ma** MM compiler source code in amalgamated form. This has been de-tabbed (otherwise M source it needs 4-space tabs).
+**mm.ma** MM compiler source code in amalgamated form. This has been de-tabbed (otherwise M source needs 4-space tabs).
 It can be split up into discrete files using a script as the format is simple (a "===" line precedes each file).
 
 Or, if the MM compiler is running under Windows, using 'mm -deconst mm.ma'
